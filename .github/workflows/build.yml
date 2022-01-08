@@ -29,6 +29,8 @@ jobs:
         mkdir -p libelf_build-prefix/src/libelf_build/
         cp -f /usr/share/misc/config.sub libelf_build-prefix/src/libelf_build/config.sub
         cp -f /usr/share/misc/config.guess libelf_build-prefix/src/libelf_build/config.guess
+        chattr +i libelf_build-prefix/src/libelf_build/config.sub
+        chattr +i libelf_build-prefix/src/libelf_build/config.guess
         cmake ..
         make -j$(nproc) tarball
     - name: Upload artifacts
