@@ -13,9 +13,6 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y software-properties-common
-        sudo add-apt-repository ppa:george-edison55/cmake-3.x
-        sudo apt-get update
         sudo apt-get install -y cmake cmake-data git build-essential autoconf libtool texinfo bison flex pkg-config python
     - name: Clone
       run: |
