@@ -26,9 +26,10 @@ jobs:
         git config --global user.name "Travis CI"
         mkdir build
         cd build
+        mkdir -p libelf_build-prefix/src/libelf_build/
+        cp -f /usr/share/misc/config.sub libelf_build-prefix/src/libelf_build/
+        cp -f /usr/share/misc/config.guess libelf_build-prefix/src/libelf_build/
         cmake ..
-        cp -f /usr/share/misc/config.sub ./libelf_build-prefix/src/libelf_build/
-        cp -f /usr/share/misc/config.guess ./libelf_build-prefix/src/libelf_build/
         make -j$(nproc) tarball
     - name: Upload artifacts
       if: ${{ success() }}
