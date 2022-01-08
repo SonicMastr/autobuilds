@@ -4,6 +4,8 @@ on:
   push:
   repository_dispatch:
     types: [run_build]
+  schedule:
+  - cron: "0 */12 * * *"
 
 jobs:
   build-linux-arm:
