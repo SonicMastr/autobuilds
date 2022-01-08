@@ -17,7 +17,7 @@ jobs:
     - name: Clone
       run: |
         export REV=dirty-$(git describe --always)
-        git clone https://github.com/vitasdk/buildscripts.git
+        git clone https://github.com/SonicMastr/buildscripts.git
         chmod +x *.sh 
     - name: Build
       run: |
@@ -26,9 +26,6 @@ jobs:
         git config --global user.name "Travis CI"
         mkdir build
         cd build
-        mkdir -p libelf_build-prefix/src/libelf_build/
-        cp -f /usr/share/misc/config.sub libelf_build-prefix/src/libelf_build/config.sub
-        cp -f /usr/share/misc/config.guess libelf_build-prefix/src/libelf_build/config.guess
         cmake ..
         make -j$(nproc) tarball
     - name: Upload artifacts
