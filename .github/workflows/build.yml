@@ -12,47 +12,47 @@ jobs:
     runs-on: ubuntu-18.04
     name: Build on ubuntu-18.04 aarch64
     steps:
-      - uses: actions/checkout@v2.1.0
-      - uses: uraimo/run-on-arch-action@v2
-      - name: Run commands
-        id: runcmd
-        with:
-          arch: aarch64
-          distro: bullseye
+    - uses: actions/checkout@v2.1.0
+    - uses: uraimo/run-on-arch-action@v2
+    - name: Run commands
+      id: runcmd
+      with:
+        arch: aarch64
+        distro: bullseye
 
-          # Create a buildscripts directory
-          setup: |
-            mkdir -p "${PWD}/buildscripts"
+        # Create a buildscripts directory
+        setup: |
+          mkdir -p "${PWD}/buildscripts"
 
-          # Mount the buildscripts directory as /buildscripts in the container
-          dockerRunArgs: |
-            --volume "${PWD}/buildscripts:/buildscripts"
+        # Mount the buildscripts directory as /buildscripts in the container
+        dockerRunArgs: |
+          --volume "${PWD}/buildscripts:/buildscripts"
 
-          # Set an output parameter `uname` for use in subsequent steps
-          run: |
-            sudo apt-get update
-            sudo apt-get install -y cmake cmake-data git build-essential autoconf libtool texinfo bison flex pkg-config python
-            export REV=dirty-$(git describe --always)
-            git clone https://github.com/SonicMastr/buildscripts.git /buildscripts
-            chmod +x *.sh 
-            cd /buildscripts
-            git config --global user.email "builds@travis-ci.com"
-            git config --global user.name "Travis CI"
-            mkdir build
-            cd build
-            cmake ..
-            make -j$(nproc) tarball
-      - name: Upload artifacts
-        if: ${{ success() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: vitasdk-linux-arm
-          path: "${PWD}/buildscripts/build/*.tar.bz2"
-      - uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: "${PWD}/buildscripts/build/*.tar.bz2"
-          overwrite: true
-          file_glob: true
-          tag: master-linux-arm-v2.${{github.run_number}}     
-          release_name: master-linux-arm-v2.${{github.run_number}}
+        # Set an output parameter `uname` for use in subsequent steps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake cmake-data git build-essential autoconf libtool texinfo bison flex pkg-config python
+          export REV=dirty-$(git describe --always)
+          git clone https://github.com/SonicMastr/buildscripts.git /buildscripts
+          chmod +x *.sh 
+          cd /buildscripts
+          git config --global user.email "builds@travis-ci.com"
+          git config --global user.name "Travis CI"
+          mkdir build
+          cd build
+          cmake ..
+          make -j$(nproc) tarball
+    - name: Upload artifacts
+      if: ${{ success() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: vitasdk-linux-arm
+        path: "${PWD}/buildscripts/build/*.tar.bz2"
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: "${PWD}/buildscripts/build/*.tar.bz2"
+        overwrite: true
+        file_glob: true
+        tag: master-linux-arm-v2.${{github.run_number}}     
+        release_name: master-linux-arm-v2.${{github.run_number}}
