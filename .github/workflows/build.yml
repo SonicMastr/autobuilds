@@ -13,6 +13,10 @@ jobs:
     name: Build on ubuntu-18.04 aarch64
     steps:
     - uses: actions/checkout@v2.1.0
+    - name: Install Sudo
+      run:  |
+          apt update
+          apt install -y sudo
     - uses: uraimo/run-on-arch-action@v2.1.1
       name: Run commands
       id: runcmd
