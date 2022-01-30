@@ -13,10 +13,6 @@ jobs:
     name: Build on ubuntu-18.04 aarch64
     steps:
     - uses: actions/checkout@v2.1.0
-    - name: Install Sudo
-      run:  |
-          apt update
-          apt install -y sudo
     - uses: uraimo/run-on-arch-action@v2.1.1
       name: Run commands
       id: runcmd
@@ -31,11 +27,14 @@ jobs:
         # Mount the buildscripts directory as /buildscripts in the container
         dockerRunArgs: |
           --volume "${PWD}/buildscripts:/buildscripts"
+          --privileged
+
+        install: |
+             apt-get update
+             apt-get install -y sudo cmake cmake-data git build-essential autoconf libtool texinfo bison flex pkg-config python
 
         # Set an output parameter `uname` for use in subsequent steps
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake cmake-data git build-essential autoconf libtool texinfo bison flex pkg-config python
           export REV=dirty-$(git describe --always)
           git clone https://github.com/SonicMastr/buildscripts.git /buildscripts
           chmod +x *.sh 
