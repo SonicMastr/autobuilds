@@ -42,5 +42,5 @@ jobs:
         file: buildscripts/build/*.tar.bz2
         overwrite: true
         file_glob: true
-        tag: master-linux-arm-v2.${{github.run_number}}     
+        tag: master-linux-arm-v2${{github.run_number}}     
         release_name: master-linux-arm-v2.${{github.run_number}}
