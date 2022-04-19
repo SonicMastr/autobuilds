@@ -1,6 +1,6 @@
 autobuilds
 ==========
-[![Build Status](https://travis-ci.org/vitasdk/autobuilds.svg?branch=master)](https://travis-ci.org/vitasdk/autobuilds)
+[![ARM Build Status](https://github.com/SonicMastr/autobuilds/actions/workflows/build.yml/badge.svg)](https://github.com/SonicMastr/autobuilds/actions/workflows/build.yml)
 
 The latest builds can be found [here](https://github.com/vitasdk/autobuilds/releases/) for Windows (x64), Linux (x64), and OSX (Intel).
 [Here](https://github.com/SonicMastr/autobuilds/releases/) for Linux (ARM64).
